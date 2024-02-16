@@ -117,6 +117,11 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
+    - name: Custom Patch
+      run: |
+        cp 912-skipping-wrong-addresses-causes-service-to-exit.patch /openwrt/build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/912-skipping-wrong-addresses-causes-service-to-exit.patch
+	patch -p1 < ./build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/912-skipping-wrong-addresses-causes-service-to-exit.patch
+   
     - name: Download package
       id: package
       run: |
