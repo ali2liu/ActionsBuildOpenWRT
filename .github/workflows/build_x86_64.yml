@@ -116,11 +116,7 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-
-    - name: Custom Patch
-      run: |
-        patch -p1 < 912-skipping-wrong-addresses-causes-service-to-exit.patch
-   
+  
     - name: Download package
       id: package
       run: |
