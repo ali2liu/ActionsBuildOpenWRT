@@ -11,6 +11,7 @@ env:
   CONFIG_FILE: x86_64.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: x86_64-part2.sh
+  DIY_patch: option.c
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
@@ -130,7 +131,7 @@ jobs:
       run: |
         cd openwrt
         mkdir -p build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/src
-        cp option.c build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/src
+        [ -e $DIY_patch ] && cp $DIY_patch build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/src/option.c
 
     - name: Compile the firmware
       id: compile
