@@ -11,6 +11,7 @@ env:
   CONFIG_FILE: x86_64.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: x86_64-part2.sh
+  DIY_patch: option.c
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
@@ -116,9 +117,7 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-        #cp $GITHUB_WORKSPACE/912-skipping-wrong-addresses-causes-service-to-exit.patch openwrt/build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/912-skipping-wrong-addresses-causes-service-to-exit.patch
-        #patch -p1 < openwrt/build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/912-skipping-wrong-addresses-causes-service-to-exit.patch
-  
+   
     - name: Download package
       id: package
       run: |
@@ -127,6 +126,12 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+
+    - name: Apply custom patch
+      run: |
+        cd openwrt
+        mkdir -p build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/src
+        cp $GITHUB_WORKSPACE/$DIY_patch build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/src
 
     - name: Compile the firmware
       id: compile
