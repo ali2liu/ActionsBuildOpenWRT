@@ -129,9 +129,8 @@ jobs:
 
     - name: Apply custom patch
       run: |
-        cd openwrt
-        mkdir -p build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/src
-        [ -e $DIY_patch ] && cp $DIY_patch build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/src/option.c
+        mkdir -p openwrt/build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/src
+        [ -e $DIY_patch ] && mv $DIY_patch openwrt/build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/src/option.c
 
     - name: Compile the firmware
       id: compile
