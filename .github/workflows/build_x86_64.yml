@@ -129,12 +129,11 @@ jobs:
 
     - name: Apply custom patch
       run: |
-        # 替换dnsmasq的option.c源码以使Adbyby+能正常运行
+        rm -rf openwrt/feeds/packages/lang/golang
+        git clone https://github.com/sbwml/packages_lang_golang -b 22.x openwrt/feeds/packages/lang/golang        
         mkdir -p openwrt/build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/src
         [ -e $DIY_patch ] && mv $DIY_patch openwrt/build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/src/option.c
-        # 替换golang为1.22.x版以编译xray1.88
-        rm -rf openwrt/feeds/packages/lang/golang
-        git clone https://github.com/sbwml/packages_lang_golang -b 22.x openwrt/feeds/packages/lang/golang
+
     - name: Compile the firmware
       id: compile
       run: |
