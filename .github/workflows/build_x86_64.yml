@@ -12,6 +12,7 @@ env:
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: x86_64-part2.sh
   DIY_patch: option.c
+  DIY_mosdns: Makefile
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
@@ -133,7 +134,8 @@ jobs:
         git clone https://github.com/sbwml/packages_lang_golang -b 22.x openwrt/feeds/packages/lang/golang        
         mkdir -p openwrt/build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/src
         [ -e $DIY_patch ] && mv $DIY_patch openwrt/build_dir/target-x86_64_musl/dnsmasq-full/dnsmasq-2.88/src/option.c
-
+        rm -rf openwrt/feeds/packages/net/mosdns/Makefile
+        [ -e $DIY_mosdns ] $$ mv $DIY_mosdns openwrt/feeds/packages/net/mosdns
     - name: Compile the firmware
       id: compile
       run: |
