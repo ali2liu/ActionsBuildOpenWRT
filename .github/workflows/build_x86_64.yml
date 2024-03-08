@@ -140,8 +140,7 @@ jobs:
         rm -rf openwrt/feeds/packages/utils/v2dat/Makefile
         [ -e $DIY_v2dat ] && mv $DIY_v2dat openwrt/feeds/packages/utils/v2dat/Makefile
         rm -rf openwrt/package/feeds/passwall_packages/chinadns-ng/Makefile
-        wget https://github.com/sbwml/openwrt_helloworld/blob/v5/chinadns-ng/Makefile
-        mv Makefile openwrt/package/feeds/passwall_packages/chinadns-ng/Makefile
+
     - name: Compile the firmware
       id: compile
       run: |
